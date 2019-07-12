@@ -4,6 +4,23 @@
 #define FN 1
 #define ME 2
 
+// define name of macros
+enum custom_keycodes {
+  SEARCH = SAFE_RANGE,
+};
+
+// define what macros do
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case SEARCH:
+      if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL("ctv") SS_TAP(X_ENTER)); // copies, opens new tab, pastes, enters
+      }
+      break;
+  }
+  return true;
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
     /* 0: Default Layer
@@ -64,7 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          \
         _______,          _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_MPLY, KC_MPRV,          _______, _______, \
-                 _______, _______,                   _______,                                              _______, _______ )
+                 _______, _______,                   SEARCH,                                              _______, _______ )
 };
+
 
 
